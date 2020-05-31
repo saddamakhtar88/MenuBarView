@@ -55,10 +55,20 @@ public class MenuBarView: UIView {
         self.initializeView()
     }
     
-    final public func setMenu(labels: [String], distribution: UIStackView.Distribution = .fillProportionally) {
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateButtonInsetsToExpandStackView(leftOutSpaceToFill: 0)
+        stackView.layoutIfNeeded()
+        
+        let leftOutSpace = frame.width - stackView.frame.width
+        updateButtonInsetsToExpandStackView(leftOutSpaceToFill: leftOutSpace > 0 ? leftOutSpace : 0)
+    }
+    
+    final public func setMenu(labels: [String]) {
         resetStackView()
         stackView.spacing = menuSpacing
-        stackView.distribution = distribution
+        stackView.distribution = .fill
         
         for index in 0..<labels.count {
             let button = UIButton()
@@ -66,17 +76,39 @@ public class MenuBarView: UIView {
 
             delegate?.decorateMenu(button: button, forIndex: index)
             
-            if index == 0 {
+            if labels.count == 1 {
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: contentEdgeInset?.left ?? 0, bottom: 0, right: contentEdgeInset?.right ?? 0)
+            } else if index == 0 {
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: contentEdgeInset?.left ?? 0, bottom: 0, right: 0)
-            }
-            
-            if index == labels.count  - 1 {
+            } else if index == labels.count - 1 {
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: contentEdgeInset?.right ?? 0)
             }
             
             stackView.addArrangedSubview(button)
             
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
+        }
+        
+        animateSelectionChange(selectedMenu: stackView.arrangedSubviews.first as! UIButton)
+    }
+    
+    private func updateButtonInsetsToExpandStackView(leftOutSpaceToFill: CGFloat) {
+        let menuViews = stackView.arrangedSubviews
+        let deltaInsetSpace = (leftOutSpaceToFill / CGFloat(menuViews.count)) / 2.0
+        
+        for index in 0..<menuViews.count {
+            if let button = menuViews[index] as? UIButton {
+                
+                if menuViews.count == 1 {
+                    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: (contentEdgeInset?.left ?? 0) + deltaInsetSpace, bottom: 0, right: (contentEdgeInset?.right ?? 0) + deltaInsetSpace)
+                } else if index == 0 {
+                    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: (contentEdgeInset?.left ?? 0) + deltaInsetSpace, bottom: 0, right: deltaInsetSpace)
+                } else if index == menuViews.count - 1 {
+                    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: deltaInsetSpace, bottom: 0, right: (contentEdgeInset?.right ?? 0) + deltaInsetSpace)
+                } else {
+                    button.contentEdgeInsets = UIEdgeInsets(top: 0, left: deltaInsetSpace, bottom: 0, right: deltaInsetSpace)
+                }
+            }
         }
     }
     
@@ -123,7 +155,6 @@ public class MenuBarView: UIView {
         stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor).isActive = true
         stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
         
         bottomBorderView.translatesAutoresizingMaskIntoConstraints = false
