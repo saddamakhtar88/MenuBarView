@@ -1,12 +1,12 @@
 import Foundation
 import UIKit
 
-protocol MenuBarProtocol {
+public protocol MenuBarProtocol {
     func onMenuTap(index: Int)
     func decorateMenu(button: UIButton, forIndex: Int)
 }
 
-class MenuBarView: UIView {
+public class MenuBarView: UIView {
     
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
@@ -19,38 +19,38 @@ class MenuBarView: UIView {
     
     private var bottomBorderViewViewheightConstraint: NSLayoutConstraint!
     
-    var delegate: MenuBarProtocol?
+    public var delegate: MenuBarProtocol?
     
-    var contentEdgeInset: UIEdgeInsets?
-    var menuSpacing: CGFloat = 8
-    var activeMenuHighlightHeight: CGFloat = 8 {
+    public var contentEdgeInset: UIEdgeInsets?
+    public var menuSpacing: CGFloat = 8
+    public var activeMenuHighlightHeight: CGFloat = 8 {
         didSet {
             activeMenuViewheightConstraint.constant = activeMenuHighlightHeight
         }
     }
-    var activeMenuHighlightColor = UIColor.red {
+    public var activeMenuHighlightColor = UIColor.red {
         didSet {
             activeMenuView.backgroundColor = activeMenuHighlightColor
         }
     }
     
-    var bottomBorderHeight : CGFloat = 0.5 {
+    public var bottomBorderHeight : CGFloat = 0.5 {
         didSet {
             bottomBorderViewViewheightConstraint.constant = bottomBorderHeight
         }
     }
-    var bottomBorderColor = UIColor.lightGray {
+    public var bottomBorderColor = UIColor.lightGray {
         didSet {
             bottomBorderView.backgroundColor = bottomBorderColor
         }
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initializeView()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.initializeView()
     }
