@@ -68,8 +68,10 @@ public class MenuBarView: UIView {
             
             if index == 0 {
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: contentEdgeInset?.left ?? 0, bottom: 0, right: 0)
-            } else if index == labels.count  - 1 {
-                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: contentEdgeInset?.left ?? 0)
+            }
+            
+            if index == labels.count  - 1 {
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: contentEdgeInset?.right ?? 0)
             }
             
             stackView.addArrangedSubview(button)
