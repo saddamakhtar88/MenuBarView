@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 public protocol MenuBarProtocol {
-    func onMenuTap(index: Int)
+    func onActiveMenuChange(index: Int)
     func decorateMenu(button: UIButton, forIndex: Int)
 }
 
@@ -18,6 +18,8 @@ public class MenuBarView: UIView {
     private var activeMenuViewheightConstraint: NSLayoutConstraint!
     
     private var bottomBorderViewViewheightConstraint: NSLayoutConstraint!
+    
+    private var prActiveMenuIndex: Int = 0
     
     public var delegate: MenuBarProtocol?
     
@@ -42,6 +44,22 @@ public class MenuBarView: UIView {
     public var bottomBorderColor = UIColor.lightGray {
         didSet {
             bottomBorderView.backgroundColor = bottomBorderColor
+        }
+    }
+    
+    final public var activeMenuIndex: Int {
+        get {
+            prActiveMenuIndex
+        }
+        set {
+            if newValue > -1 &&
+                newValue < stackView.arrangedSubviews.count &&
+                newValue != prActiveMenuIndex {
+                prActiveMenuIndex = newValue
+                let button = stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton
+                animateSelectionChange(selectedMenu: button)
+                delegate?.onActiveMenuChange(index: prActiveMenuIndex)
+            }
         }
     }
     
@@ -78,7 +96,7 @@ public class MenuBarView: UIView {
         for index in 0..<labels.count {
             let button = UIButton()
             button.setTitle(labels[index], for: .normal)
-
+            
             delegate?.decorateMenu(button: button, forIndex: index)
             
             if labels.count == 1 {
@@ -94,14 +112,8 @@ public class MenuBarView: UIView {
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
         }
         
-        let activeIndex = defaultActive > -1 && defaultActive < stackView.arrangedSubviews.count ? defaultActive : 0
-        animateSelectionChange(selectedMenu: stackView.arrangedSubviews[activeIndex] as! UIButton)
-    }
-    
-    final public func setActiveMenu(index: Int) {
-        if index > -1 && index < stackView.arrangedSubviews.count {
-           pressed(sender: stackView.arrangedSubviews[index] as? UIButton)
-        }
+        prActiveMenuIndex = defaultActive > -1 && defaultActive < stackView.arrangedSubviews.count ? defaultActive : 0
+        animateSelectionChange(selectedMenu: stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton)
     }
     
     private func updateButtonInsetsToExpandStackView(leftOutSpaceToFill: CGFloat) {
@@ -133,9 +145,8 @@ public class MenuBarView: UIView {
     }
     
     @objc private func pressed(sender: UIButton!) {
-        animateSelectionChange(selectedMenu: sender)
-        let index = stackView.arrangedSubviews.firstIndex(of: sender)
-        delegate?.onMenuTap(index: index ?? -1)
+        let menuIndex = stackView.arrangedSubviews.firstIndex(of: sender) ?? -1
+        activeMenuIndex = menuIndex
     }
     
     private func animateSelectionChange(selectedMenu: UIButton) {
