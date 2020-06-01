@@ -2,6 +2,8 @@
 
 A UIView derivative for menu view
 
+![](sample.gif)
+
 ## Public APIs
 
 ### Functions 
