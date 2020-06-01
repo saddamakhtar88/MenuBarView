@@ -65,7 +65,12 @@ public class MenuBarView: UIView {
         updateButtonInsetsToExpandStackView(leftOutSpaceToFill: leftOutSpace > 0 ? leftOutSpace : 0)
     }
     
-    final public func setMenu(labels: [String]) {
+    final public func setMenu(labels: [String], defaultActive: Int = 0) {
+        
+        guard labels.count > 0 else {
+            return
+        }
+        
         resetStackView()
         stackView.spacing = menuSpacing
         stackView.distribution = .fill
@@ -89,7 +94,14 @@ public class MenuBarView: UIView {
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
         }
         
-        animateSelectionChange(selectedMenu: stackView.arrangedSubviews.first as! UIButton)
+        let activeIndex = defaultActive > -1 && defaultActive < stackView.arrangedSubviews.count ? defaultActive : 0
+        animateSelectionChange(selectedMenu: stackView.arrangedSubviews[activeIndex] as! UIButton)
+    }
+    
+    final public func setActiveMenu(index: Int) {
+        if index > -1 && index < stackView.arrangedSubviews.count {
+           pressed(sender: stackView.arrangedSubviews[index] as? UIButton)
+        }
     }
     
     private func updateButtonInsetsToExpandStackView(leftOutSpaceToFill: CGFloat) {
