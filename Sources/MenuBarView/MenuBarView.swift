@@ -136,6 +136,13 @@ public class MenuBarView: UIView {
             self.activeMenuViewCenterConstraint.isActive = true
             self.layoutIfNeeded()
         }
+        
+        let menuFrame = CGRect(origin: CGPoint(x: selectedMenu.frame.origin.x - (menuSpacing / 2),
+                                               y: selectedMenu.frame.origin.y),
+                               size: CGSize(width: selectedMenu.frame.width + menuSpacing,
+                                            height: selectedMenu.frame.height))
+        
+        scrollView.scrollRectToVisible(menuFrame, animated: true)
     }
     
     private func initializeView() {
