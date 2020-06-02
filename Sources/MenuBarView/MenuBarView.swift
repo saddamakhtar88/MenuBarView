@@ -56,9 +56,13 @@ public class MenuBarView: UIView {
                 newValue < stackView.arrangedSubviews.count &&
                 newValue != prActiveMenuIndex {
                 prActiveMenuIndex = newValue
+                delegate?.onActiveMenuChange(index: prActiveMenuIndex)
                 let button = stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton
                 animateSelectionChange(selectedMenu: button)
-                delegate?.onActiveMenuChange(index: prActiveMenuIndex)
+                for (index, arrangedSubview) in stackView.arrangedSubviews.enumerated() {
+                    delegate?.decorateMenu(button: arrangedSubview as! UIButton,
+                                           forIndex: index)
+                }
             }
         }
     }
