@@ -59,10 +59,7 @@ public class MenuBarView: UIView {
                 delegate?.onActiveMenuChange(index: prActiveMenuIndex)
                 let button = stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton
                 animateSelectionChange(selectedMenu: button)
-                for (index, arrangedSubview) in stackView.arrangedSubviews.enumerated() {
-                    delegate?.decorateMenu(button: arrangedSubview as! UIButton,
-                                           forIndex: index)
-                }
+                provideDecorationOpportunity()
             }
         }
     }
@@ -101,8 +98,6 @@ public class MenuBarView: UIView {
             let button = UIButton()
             button.setTitle(labels[index], for: .normal)
             
-            delegate?.decorateMenu(button: button, forIndex: index)
-            
             if labels.count == 1 {
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: contentEdgeInset?.left ?? 0, bottom: 0, right: contentEdgeInset?.right ?? 0)
             } else if index == 0 {
@@ -118,6 +113,7 @@ public class MenuBarView: UIView {
         
         prActiveMenuIndex = defaultActive > -1 && defaultActive < stackView.arrangedSubviews.count ? defaultActive : 0
         animateSelectionChange(selectedMenu: stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton)
+        provideDecorationOpportunity()
     }
     
     private func updateButtonInsetsToExpandStackView(leftOutSpaceToFill: CGFloat) {
@@ -170,6 +166,13 @@ public class MenuBarView: UIView {
                                             height: selectedMenu.frame.height))
         
         scrollView.scrollRectToVisible(menuFrame, animated: true)
+    }
+    
+    private func provideDecorationOpportunity() {
+        for (index, arrangedSubview) in stackView.arrangedSubviews.enumerated() {
+            delegate?.decorateMenu(button: arrangedSubview as! UIButton,
+                                   forIndex: index)
+        }
     }
     
     private func initializeView() {
