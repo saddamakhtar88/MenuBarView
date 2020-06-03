@@ -23,13 +23,19 @@ public class MenuBarView: UIView {
     
     public var delegate: MenuBarProtocol?
     
-    public var contentEdgeInset: UIEdgeInsets?
+    public var contentEdgeInset: UIEdgeInsets? {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     public var menuSpacing: CGFloat = 8
     public var activeMenuHighlightHeight: CGFloat = 8 {
         didSet {
             activeMenuViewheightConstraint.constant = activeMenuHighlightHeight
         }
     }
+    
     public var activeMenuHighlightColor = UIColor.red {
         didSet {
             activeMenuView.backgroundColor = activeMenuHighlightColor
@@ -41,6 +47,7 @@ public class MenuBarView: UIView {
             bottomBorderViewViewheightConstraint.constant = bottomBorderHeight
         }
     }
+    
     public var bottomBorderColor = UIColor.lightGray {
         didSet {
             bottomBorderView.backgroundColor = bottomBorderColor
