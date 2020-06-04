@@ -152,13 +152,13 @@ public class MenuBarView: UIView {
         for index in 0..<labels.count {
             let button = UIButton()
             button.setTitle(labels[index], for: .normal)
+            delegate?.decorateMenu(button: button, forIndex: index)
             stackView.addArrangedSubview(button)
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
         }
         
         prActiveMenuIndex = defaultActive > -1 && defaultActive < stackView.arrangedSubviews.count ? defaultActive : 0
         animateSelectionChange(selectedMenu: stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton)
-        provideDecorationOpportunity()
     }
     
     private func updateButtonInsetsToExpandStackView(leftOutSpaceToFill: CGFloat) {
