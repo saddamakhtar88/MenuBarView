@@ -23,14 +23,21 @@ dependencies: [
 - setMenu(labels: [String], defaultActive: Int = 0)
 
 ### Properties
+- style: MenuBarViewStyle
 - activeMenuIndex: Int
 - contentEdgeInset: UIEdgeInsets?
 - menuSpacing: CGFloat = 8
-- activeMenuHighlightHeight: CGFloat = 8
 - activeMenuHighlightColor = UIColor.red
 - bottomBorderHeight : CGFloat = 0.5
 - bottomBorderColor = UIColor.lightGray
 
-## Delegate <MenuBarProtocol>
+#### MenuBarViewStyle.Underline
+- activeMenuHighlightHeight: CGFloat = 8
+
+#### MenuBarViewStyle.Segment
+- activeMenuSegmentCornerRadius: CGFloat = 4.0
+- activeMenuSegmentVerticalSpace: CGFloat = 4.0
+
+## Delegate - MenuBarProtocol
 - func onActiveMenuChange(index: Int)
 - func decorateMenu(button: UIButton, forIndex: Int)
