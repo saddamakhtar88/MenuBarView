@@ -145,6 +145,8 @@ public class MenuBarView: UIView {
             return
         }
         
+        prActiveMenuIndex = defaultActive > -1 && defaultActive < labels.count ? defaultActive : 0
+        
         resetStackView()
         stackView.spacing = menuSpacing
         stackView.distribution = .fill
@@ -157,7 +159,6 @@ public class MenuBarView: UIView {
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
         }
         
-        prActiveMenuIndex = defaultActive > -1 && defaultActive < stackView.arrangedSubviews.count ? defaultActive : 0
         animateSelectionChange(selectedMenu: stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton)
     }
     
