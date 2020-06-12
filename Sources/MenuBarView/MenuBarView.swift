@@ -159,6 +159,9 @@ public class MenuBarView: UIView {
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
         }
         
+        setNeedsLayout()
+        layoutIfNeeded()
+        
         animateSelectionChange(selectedMenu: stackView.arrangedSubviews[prActiveMenuIndex] as! UIButton)
     }
     
