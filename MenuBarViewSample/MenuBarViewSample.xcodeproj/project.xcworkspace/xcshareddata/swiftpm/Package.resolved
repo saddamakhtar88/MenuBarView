@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MenuBarView",
+        "repositoryURL": "https://github.com/saddamakhtar88/MenuBarView.git",
+        "state": {
+          "branch": null,
+          "revision": "a38c86ef181f7fa2cc40d972febfd00788292084",
+          "version": "1.2.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

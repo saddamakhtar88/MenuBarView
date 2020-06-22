@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MenuBarViewSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="I15-tV-gGD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSH-j0-Lud" customClass="MenuBarView" customModule="MenuBarView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="cOn-ab-4LN"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KP8-eu-gE3" customClass="MenuBarView" customModule="MenuBarView">
+                                <rect key="frame" x="0.0" y="134" width="414" height="60"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="EKy-mY-LiK"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="QVU-lB-6iM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="KP8-eu-gE3" firstAttribute="leading" secondItem="bEL-HZ-g5r" secondAttribute="leading" id="0Qn-o9-aXz"/>
+                            <constraint firstItem="bSH-j0-Lud" firstAttribute="top" secondItem="bEL-HZ-g5r" secondAttribute="top" id="68u-Uw-xjO"/>
+                            <constraint firstItem="bSH-j0-Lud" firstAttribute="trailing" secondItem="bEL-HZ-g5r" secondAttribute="trailing" id="YpZ-JP-89N"/>
+                            <constraint firstItem="bSH-j0-Lud" firstAttribute="leading" secondItem="bEL-HZ-g5r" secondAttribute="leading" id="feO-XD-bRn"/>
+                            <constraint firstItem="KP8-eu-gE3" firstAttribute="trailing" secondItem="bEL-HZ-g5r" secondAttribute="trailing" id="hg2-x9-oFf"/>
+                            <constraint firstItem="KP8-eu-gE3" firstAttribute="top" secondItem="bSH-j0-Lud" secondAttribute="bottom" constant="30" id="y19-Lg-X62"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bEL-HZ-g5r"/>
+                    </view>
+                    <connections>
+                        <outlet property="menuBar1" destination="bSH-j0-Lud" id="KsE-Ab-fq5"/>
+                        <outlet property="menuBar2" destination="KP8-eu-gE3" id="nTV-cR-xes"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="115"/>
+        </scene>
+    </scenes>
+</document>
