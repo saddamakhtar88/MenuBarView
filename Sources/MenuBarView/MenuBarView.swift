@@ -154,6 +154,7 @@ public class MenuBarView: UIView {
         for index in 0..<labels.count {
             let button = UIButton()
             button.setTitle(labels[index], for: .normal)
+            button.titleLabel?.lineBreakMode = .byClipping
             delegate?.decorateMenu(button: button, forIndex: index)
             stackView.addArrangedSubview(button)
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
