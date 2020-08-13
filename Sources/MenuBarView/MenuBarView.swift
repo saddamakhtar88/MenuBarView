@@ -157,6 +157,7 @@ public class MenuBarView: UIView {
             delegate?.decorateMenu(button: button, forIndex: index)
             stackView.addArrangedSubview(button)
             button.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
+            button.titleLabel?.lineBreakMode = .byClipping
         }
         
         setNeedsLayout()
