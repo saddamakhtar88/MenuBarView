@@ -1,5 +1,4 @@
 # MenuBarView
-
 A UIView derivative for menu view
 
 ![](sample.gif)
